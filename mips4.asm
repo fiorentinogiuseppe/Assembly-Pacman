@@ -1,17 +1,18 @@
-.data				# |4b|4bits|4bit|4bits|4bit
-	estrutura: .space 1024  # |id|north|east|south|west
+.data				     # |4b|4bits|4bit|4bits|4bit
+	estrutura: 	.space 1024  # |id|north|east|south|west
 	gameSpeed:	.word 200
 	cor: 		.word 0x000000FF
 	bitmap_adress: 	.word 0x10010000
 	bitmap_size:  	.word 4096 #64x64 pixels
-	fileInput: .asciiz "maps.txt"
-	buffer: .space 1024
-	array: .space 20
+	fileInput: 	.asciiz "maps.txt"
+	buffer: 	.space 1024
+	array: 		.space 20
 
 .text
 
 	main:
 		jal loadmap
+		jal bitmap
 		jal exit
 		
 	loadmap:
@@ -87,19 +88,25 @@
 		
 		add $s6, $s6 ,20
 		jr $ra
+	
+	bitmap:		
+		lw $t0, bitmap_adress
+		lw $t1, cor
+		lw $t2, bitmap_size
+		li $t6, 1
+		move $t3, $zero #contador
 		
-	bitmap_loop:
-		beq	$t3,$t2, bitmap_exit
-		sll	$t4, $t3, 2 #contagem de bit em contagem de bytes. Display eh uma palavra. Cada palavra do display pinta um pixel
-		add	$t4, $t4, $t0 #coloca na area de display
-		sw	$t1,0($t4) #escrever no pixel
-		addi	$t3,$t3, 1 #ir pro proximo prixel
-
-			
+		bitmap_loop:
+			beq	$t3,$t2, bitmap_exit
+			sll	$t4, $t3, 2 #contagem de bit em contagem de bytes. Display eh uma palavra. Cada palavra do display pinta um pixel
+			add	$t4, $t4, $t0 #coloca na area de display
+			sw	$t1,0($t4) #escrever no pixel
+			addi	$t3,$t3, 1 #ir pro proximo prixel
+		
 		cont: j bitmap_loop
 	
 	
-	bitmap_exit:	jr $ra
+		bitmap_exit: jr $ra
 		
 	InputCheck:
 		lw $a0, gameSpeed
@@ -115,11 +122,7 @@
 		li $v0, 32 #syscall value for sleep
 		syscall
 		jr $ra
-		
-	exit:		
-		li $v0, 10		# system call code for exit = 10
-		syscall
-		
+	
 	file_open:
 			li $v0, 13 #system call for open file
 			la $a0, fileInput #board file name
@@ -140,3 +143,6 @@
 		move $a0, $s6      # file descriptor to close
 		syscall
 		jr $ra
+	exit:		
+		li $v0, 10		# system call code for exit = 10
+		syscall
