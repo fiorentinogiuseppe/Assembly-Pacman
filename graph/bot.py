@@ -44,19 +44,19 @@ ns = { 'office'     :   "urn:oasis:names:tc:opendocument:xmlns:office:1.0",
 # Setup variables
 file_source = 'teste_1.fods'
 file_destiny = 'data.bin'
-width_of_matrix = 5
-height_of_matrix = 3
-size_of_structure = 5 * 4       # 5 words of 4 bytes
-# reg_color = '$s0'               # Register where will contain the color
-# reg_memory = '$s1'              # Register where will contain the memory position of first pixel
-# initial_position = '0x10010000' # Initial position of screen
+width_of_matrix = 64
+height_of_matrix = 64
+size_of_structure = 5 * 4			# 5 words of 4 bytes
+# reg_color = '$s0'					# Register where will contain the color
+# reg_memory = '$s1'				# Register where will contain the memory position of first pixel
+# initial_position = '0x10010000' 	# Initial position of screen
 
 # Dictionary to standards IDs to nodes
-IDs =   {   '#000000'   :   '0x0',   # Empty space
-            '#ffffff'   :   '0x1',   # Pac dot
-            '#ffffff'   :   '0x1',   # Especial
-            '#ff0000'   :   '0x3',   # Fruit
-            '#2d32b8'   :   '0x4'   # Wall
+IDs =   {   '#000000'   :   '0x0',	# Empty space
+            '#ffffff'   :   '0x1',	# Pac dot
+            '#ffffff'   :   '0x1',	# Especial
+            '#ff0000'   :   '0x3',	# Fruit
+            '#2d32b8'   :   '0x4'	# Wall
         }
 
 # Load xml file
@@ -103,13 +103,13 @@ for row in table.findall('table:table-row', ns):
     # print()
 
 # Print matrix
-print('-' * 40)
-print("Print Matrix")
-print()
-for x in range(height_of_matrix):
-    for y in range(width_of_matrix):
-        print(" %s " % (screen[x][y]), end="")
-    print()
+#print('-' * 40)
+#print("Print Matrix")
+#print()
+#for x in range(height_of_matrix):
+    #for y in range(width_of_matrix):
+        #print(" %s " % (screen[x][y]), end="")
+    #print()
 
 # Convert the matrix into graph
 graph = []
@@ -167,6 +167,7 @@ file = open(file_destiny, 'w')
 
 # Write preparation to file
 file.write('.data\n\n')
+file.write('graph:\n')
 for k in range(int(len(graph) / 5)):
     file.write("%10s %10s %10s %10s %10s\n" % (graph[k*5], graph[k*5 + 1], graph[k*5 + 2], graph[k*5 + 3], graph[k*5 + 4]))
 
