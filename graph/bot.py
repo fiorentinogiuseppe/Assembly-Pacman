@@ -42,21 +42,25 @@ ns = { 'office'     :   "urn:oasis:names:tc:opendocument:xmlns:office:1.0",
 
 
 # Setup variables
-file_source = 'teste_1.fods'
-file_destiny = 'data.bin'
-width_of_matrix = 64
-height_of_matrix = 64
-size_of_structure = 5 * 4			# 5 words of 4 bytes
+file_source = 'teste_1.fods'# Fonte
+file_destiny = 'data.bin'   # Destino
+width_of_matrix = 16        # Mudar isto de acordo com a quantidade de linhas
+height_of_matrix = 16       # Mudar isto de acordo com a quantidade de colunas
+size_of_structure = 6 * 4			# 6 words of 4 bytes
 # reg_color = '$s0'					# Register where will contain the color
 # reg_memory = '$s1'				# Register where will contain the memory position of first pixel
-# initial_position = '0x10010000' 	# Initial position of screen
+pixel_address = 0x10010000          # Initial position of screen pixel
 
 # Dictionary to standards IDs to nodes
 IDs =   {   '#000000'   :   '0x0',	# Empty space
             '#ffffff'   :   '0x1',	# Pac dot
-            '#ffffff'   :   '0x1',	# Especial
-            '#ff0000'   :   '0x3',	# Fruit
-            '#2d32b8'   :   '0x4'	# Wall
+            '#ffff3c'   :   '0x2',  # Pac man
+#            '#ff0000'   :   '0x3',	# Fruit
+            '#2d32b8'   :   '0x4',	# Wall
+            '#00ffff'   :   '0x5',  # Ghost Inky - blue
+            '#ff0000'   :   '0x6',  # Ghost Blinky - red
+            '#e68c14'   :   '0x7',  # Ghost Clyde - orange
+            '#dca0aa'   :   '0x8'   # Ghost Pinky - pink
         }
 
 # Load xml file
@@ -156,10 +160,13 @@ for x in range(height_of_matrix):
         else:
             graph.append( hex(0) )
 
+        # Pixel address of respective node
+        graph.append( hex(pixel_address) )
+        pixel_address = pixel_address + 4   # Increment to next address word
 
 print()
-for k in range(int(len(graph) / 5)):
-    print("%5s - %5s | %5s | %5s | %5s | %5s" % (hex(k*20), graph[k*5], graph[k*5 + 1], graph[k*5 + 2], graph[k*5 + 3], graph[k*5 + 4]))
+for k in range(int(len(graph) / 6)):
+    print("%5s - %5s | %5s | %5s | %5s | %5s | %15s" % (hex(k*20), graph[k*6], graph[k*6 + 1], graph[k*6 + 2], graph[k*6 + 3], graph[k*6 + 4], graph[k*6 + 5]))
 print()
 
 # Connect to file
@@ -168,8 +175,8 @@ file = open(file_destiny, 'w')
 # Write preparation to file
 file.write('.data\n\n')
 file.write('graph:\n')
-for k in range(int(len(graph) / 5)):
-    file.write("%10s %10s %10s %10s %10s\n" % (graph[k*5], graph[k*5 + 1], graph[k*5 + 2], graph[k*5 + 3], graph[k*5 + 4]))
+for k in range(int(len(graph) / 6)):
+    file.write("%10s %10s %10s %10s %10s %15s\n" % (graph[k*6], graph[k*6 + 1], graph[k*6 + 2], graph[k*6 + 3], graph[k*6 + 4], graph[k*6 + 5]))
 
 
 # # Write preparation to file

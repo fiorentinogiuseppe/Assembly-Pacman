@@ -1,7 +1,8 @@
 # Este arquivo contem procedimentos para a partir do grafo pintar o quadro na tela
 
+
 .data
-	.space 4096
+	.space 4096	# espaco dos pixels para tela
 
 .include "../graph/data.bin"
 
@@ -54,11 +55,51 @@
 		
 		draw_maze_loop_not_pac_dot:
 		
+		# Verificar se o no e o pac man
+		bne $s3, 0x2, draw_maze_loop_not_pac_man	# O no atual nao e o pac man
+		li $s4, 0x00ffff3c				# Carregar o valor da cor do pac man
+		sw $s4, 0($s1)					# "Pintar" o pixel
+		j draw_maze_loop_finalization
+		
+		draw_maze_loop_not_pac_man:
+		
+		# Verificar se o no e o fantasma azul Inky
+		bne $s3, 0x5, draw_maze_loop_not_inky		# O no atual nao e um fantasma azul inky
+		li $s4, 0x0000ffff				# Carregar o valor da cor do fantasma azul inky
+		sw $s4, 0($s1)					# "Pintar" o pixel
+		j draw_maze_loop_finalization
+		
+		draw_maze_loop_not_inky:
+		
+		# Verificar se o no e o fantasma vermelho Blinky
+		bne $s3, 0x6, draw_maze_loop_not_blinky		# O no atual nao e um fantasma vermelho blinky
+		li $s4, 0x00ff0000				# Carregar o valor da cor do fantasma vermelho blinky
+		sw $s4, 0($s1)					# "Pintar" o pixel
+		j draw_maze_loop_finalization
+		
+		draw_maze_loop_not_blinky:
+		
+		# Verificar se o no e o fantasma laranja Clyde
+		bne $s3, 0x7, draw_maze_loop_not_clyde		# O no atual nao e um fantasma laranja clyde
+		li $s4, 0x00ffa500				# Carregar o valor da cor do fantasma laranja clyde
+		sw $s4, 0($s1)					# "Pintar" o pixel
+		j draw_maze_loop_finalization
+		
+		draw_maze_loop_not_clyde:
+		
+		# Verificar se o no e o fantasma rosa Pinky
+		bne $s3, 0x8, draw_maze_loop_not_pinky		# O no atual nao e um fantasma rosa pinky
+		li $s4, 0x00ffc0cb				# Carregar o valor da cor do fantasma rosa pinky
+		sw $s4, 0($s1)					# "Pintar" o pixel
+		j draw_maze_loop_finalization
+		
+		draw_maze_loop_not_pinky:
+		
 		# TODO adicionar demais possiveis valores
 		
 		draw_maze_loop_finalization:
 		addi $s1, $s1, 4	# Preparar <$s1> para salvar no proximo pixel
-		addi $s2, $s2, 20	# Preparar <$s2> para carregar proximo no do grafo
+		addi $s2, $s2, 24	# Preparar <$s2> para carregar proximo no do grafo
 		addi $s0, $s0, 1	# Incrementar contador <$s0> de pixels
 		j draw_maze_loop
 	draw_maze_loop_end:
@@ -77,8 +118,9 @@
 
 
 .text
-li $s0, 0x10010000
-li $s1, 4096
-la $s2, graph
+li $s0, 0x10010000	# endereco inicial da tela
+li $s1, 256		# quantidade de pixels total
+la $s2, graph		# endereco do primeiro no do grafo
 
-draw_maze($s0, $s2, $s1)
+
+draw_maze($s0, $s2, $s1)	# Funcao que pinta os pixels baseado no grafo
