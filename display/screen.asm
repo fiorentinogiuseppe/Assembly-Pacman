@@ -1,10 +1,10 @@
 # Este arquivo contem procedimentos para a partir do grafo pintar o quadro na tela
 
 
-.data
-	.space 4096	# espaco dos pixels para tela
-
-.include "../graph/data.bin"
+#.data
+#	.space 4096	# espaco dos pixels para tela
+#
+#.include "../graph/data.bin"
 
 
 # Procedimento para "pintar" os pixels na tela de acordo com o grafo
@@ -117,10 +117,10 @@
 .end_macro
 
 
-.text
-li $s0, 0x10010000	# endereco inicial da tela
-li $s1, 256		# quantidade de pixels total
-la $s2, graph		# endereco do primeiro no do grafo
+#.text
+#li $s0, 0x10010000	# endereco inicial da tela
+#li $s1, 256		# quantidade de pixels total
+#la $s2, graph		# endereco do primeiro no do grafo
 
 
-draw_maze($s0, $s2, $s1)	# Funcao que pinta os pixels baseado no grafo
+#draw_maze($s0, $s2, $s1)	# Funcao que pinta os pixels baseado no grafo
