@@ -39,6 +39,8 @@ li $s0, 0x10010000
 li $s1, 256
 la $s2, graph
 
+addi $a3, $zero, 3	# <$a3> contera a quantidade de vidas
+
 draw_maze ($s0, $s2, $s1)
 
 addi $s3, $s2, 480
@@ -48,7 +50,7 @@ addi $s5, $s4, 24
 addi $s6, $s5, 24
 addi $s7, $s6, 24
 
-default_position ($s3, $s4, $s5, $s6, $s7, $s2)
+default_position ($s3, $s4, $s5, $s6, $s7)
 	
 InputCheck:
 	lw $a0, gameSpeed
@@ -70,6 +72,8 @@ move_right:
 	bne  $t1, 100, continue
         move_right($s3)
 continue:
+
+	collision_detection ($s3, $s4, $s5, $s6, $s7, $a3)
 
      
 j InputCheck

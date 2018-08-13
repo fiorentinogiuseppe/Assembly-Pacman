@@ -33,59 +33,15 @@
 #############################################################
 
 
-# Procedimento para detectar colisao entre pacman e fantasmas
-# %pacman		-> registrador com endereco para o no do grafo que contem o pacman
-# %blue_ghost		-> registrador com endereco para o no do grafo que contem o fantasma azul
-# %red_ghost		-> registrador com endereco para o no do grafo que contem o fantasma vermelho
-# %orange_ghost		-> registrador com endereco para o no do grafo que contem o fantasma laranja
-# %pink_ghost		-> registrador com endereco para o no do grafo que contem o fantasma rosa
-# %life_number		-> registrador que contem o numero de vidas restantes do jogador
-.macro collision_detection (%pacman, %blue_ghost, %red_ghost, %orange_ghost, %pink_ghost, %life_number)
-	# Push to stack
-	# Push to stack
-	
-	bne %pacman, %blue_ghost, collision_detection_blue_not_collision	# Se nao houver colisao do pacman com o fantasma azul prosseguir
-	addi %life_number, %life_number, -1	# Decrementar a quantidade de vidas
-	# ... repositioning pacman and ghosts to default position
-	# j collision_detection_end:
-	collision_detection_blue_not_collision:
-	
-	bne %pacman, %red_ghost, collision_detection_red_not_collision		# Se nao houver colisao do pacman com o fantasma vermelho prosseguir
-	# ... routine to collision
-	# j collision_detection_end:
-	collision_detection_red_not_collision:
-	
-	bne %pacman, %orange_ghost, collision_detection_orange_not_collision	# Se nao houver colisao do pacman com o fantasma laranja prosseguir
-	# ... routine to collision
-	# j collision_detection_end:
-	collision_detection_orange_not_collision:
-	
-	bne %pacman, %pink_ghost, collision_detection_pink_not_collision	# Se nao houver colisao do pacman com o fantasma rosa prosseguir
-	# ... routine to collision
-	# j collision_detection_end:
-	collision_detection_pink_not_collision:
-	
-	collision_detection_end:
-	
-	# Pop from stack
-	# Pop from stack
-.end_macro
-
-#############################################################
-#############################################################
-#############################################################
-
-
 # Procedimento para posicionar o pacman e os fantasmas na sua posicao default
 # %pacman		-> registrador com endereco para o no do grafo que contem o pacman
 # %blue_ghost		-> registrador com endereco para o no do grafo que contem o fantasma azul
 # %red_ghost		-> registrador com endereco para o no do grafo que contem o fantasma vermelho
 # %orange_ghost		-> registrador com endereco para o no do grafo que contem o fantasma laranja
 # %pink_ghost		-> registrador com endereco para o no do grafo que contem o fantasma rosa
-# %graph		-> registrador com endereco para o grafo
-.macro default_position (%pacman, %blue_ghost, %red_ghost, %orange_ghost, %pink_ghost, %graph)
+.macro default_position (%pacman, %blue_ghost, %red_ghost, %orange_ghost, %pink_ghost)
 	# Push to stack
-	addi $sp, $sp, -56
+	addi $sp, $sp, -52
 	sw $s0, 0($sp)
 	sw $s1, 4($sp)
 	sw $s2, 8($sp)
@@ -99,7 +55,6 @@
 	sw %red_ghost, 		40($sp)
 	sw %orange_ghost,	44($sp)
 	sw %pink_ghost,		48($sp)
-	sw %graph,		52($sp)
 	# Push to stack
 	
 	lw $s0, 32($sp)		# <$s0> armazenara o endereco do no do pacman
@@ -107,7 +62,7 @@
 	lw $s2, 40($sp)		# <$s2> armazenara o endereco do no do fantasma vermelho
 	lw $s3, 44($sp)		# <$s3> armazenara o endereco do no do fantasma laranja
 	lw $s4, 48($sp)		# <$s4> armazenara o endereco do no do fantasma rosa
-	lw $s5, 52($sp)		# <$s5> armazenara o endereco do no do grafo
+	la $s5, graph		# <$s5> armazenara o endereco do no do grafo
 	
 	# Reposicionamento do pacman
 	
@@ -252,7 +207,57 @@
 	lw %red_ghost, 		40($sp)
 	lw %orange_ghost,	44($sp)
 	lw %pink_ghost,		48($sp)
-	lw %graph,		52($sp)
-	addi $sp, $sp, 56
+	addi $sp, $sp, 52
 	# Pop from stack
 .end_macro
+
+
+#############################################################
+#############################################################
+#############################################################
+
+
+# Procedimento para detectar colisao entre pacman e fantasmas
+# %pacman		-> registrador com endereco para o no do grafo que contem o pacman
+# %blue_ghost		-> registrador com endereco para o no do grafo que contem o fantasma azul
+# %red_ghost		-> registrador com endereco para o no do grafo que contem o fantasma vermelho
+# %orange_ghost		-> registrador com endereco para o no do grafo que contem o fantasma laranja
+# %pink_ghost		-> registrador com endereco para o no do grafo que contem o fantasma rosa
+# %life_number		-> registrador que contem o numero de vidas restantes do jogador
+.macro collision_detection (%pacman, %blue_ghost, %red_ghost, %orange_ghost, %pink_ghost, %life_number)
+	# Push to stack
+	# Push to stack
+	
+	bne %pacman, %blue_ghost, collision_detection_blue_not_collision	# Se nao houver colisao do pacman com o fantasma azul prosseguir
+	addi %life_number, %life_number, -1							# Decrementar a quantidade de vidas
+	default_position (%pacman, %blue_ghost, %red_ghost, %orange_ghost, %pink_ghost)		# Reposicionamento para reiniciar o jogo com menos uma vida
+	j collision_detection_end
+	collision_detection_blue_not_collision:
+	
+	bne %pacman, %red_ghost, collision_detection_red_not_collision		# Se nao houver colisao do pacman com o fantasma vermelho prosseguir
+	addi %life_number, %life_number, -1							# Decrementar a quantidade de vidas
+	default_position (%pacman, %blue_ghost, %red_ghost, %orange_ghost, %pink_ghost)		# Reposicionamento para reiniciar o jogo com menos uma vida
+	j collision_detection_end
+	collision_detection_red_not_collision:
+	
+	bne %pacman, %orange_ghost, collision_detection_orange_not_collision	# Se nao houver colisao do pacman com o fantasma laranja prosseguir
+	addi %life_number, %life_number, -1							# Decrementar a quantidade de vidas
+	default_position (%pacman, %blue_ghost, %red_ghost, %orange_ghost, %pink_ghost)		# Reposicionamento para reiniciar o jogo com menos uma vida
+	j collision_detection_end
+	collision_detection_orange_not_collision:
+	
+	bne %pacman, %pink_ghost, collision_detection_pink_not_collision	# Se nao houver colisao do pacman com o fantasma rosa prosseguir
+	addi %life_number, %life_number, -1							# Decrementar a quantidade de vidas
+	default_position (%pacman, %blue_ghost, %red_ghost, %orange_ghost, %pink_ghost)		# Reposicionamento para reiniciar o jogo com menos uma vida
+	j collision_detection_end
+	collision_detection_pink_not_collision:
+	
+	collision_detection_end:
+	
+	# Pop from stack
+	# Pop from stack
+.end_macro
+
+#############################################################
+#############################################################
+#############################################################
