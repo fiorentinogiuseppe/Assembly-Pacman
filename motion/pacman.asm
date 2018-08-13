@@ -292,3 +292,35 @@
 	addi $sp, $sp, 20
 	# Pop from stack
 .end_macro
+
+
+#############################################################
+#############################################################
+#############################################################
+
+
+# Procedimento para efetuar o movimento do pac man
+# %pacman_position	-> registrador que contem a posicao do no onde esta o pacman
+# Ao final do procedimento o registrador %pacman_position
+# contera o endereco para nova posicao do pacman no grafo
+.macro move_pacman (%pacman_position)
+	# Push to stack
+	addi $sp, $sp, -20
+	sw $s0, 0($sp)
+	sw $s1, 4($sp)
+	sw $s2, 8($sp)
+	sw $s3, 12($sp)
+	sw %pacman_position, 16($sp)
+	# Push to stack
+	
+	
+	
+	# Pop from stack
+	lw $s0, 0($sp)
+	lw $s1, 4($sp)
+	lw $s2, 8($sp)
+	lw $s3, 12($sp)
+	lw %pacman_position, 16($sp)
+	addi $sp, $sp, 20
+	# Pop from stack
+.end_macro

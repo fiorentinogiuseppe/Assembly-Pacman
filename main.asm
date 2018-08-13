@@ -1,6 +1,7 @@
 .data
 
 	.space 4096
+
 	.include "graph/data.bin"
 	.include "display/screen.asm"
 	.include "system/point.asm"
@@ -41,6 +42,13 @@ la $s2, graph
 draw_maze ($s0, $s2, $s1)
 
 addi $s3, $s2, 480
+#addi $s3, $s3, 384
+addi $s4, $s3, 24
+addi $s5, $s4, 24
+addi $s6, $s5, 24
+addi $s7, $s6, 24
+
+default_position ($s3, $s4, $s5, $s6, $s7, $s2)
 	
 InputCheck:
 	lw $a0, gameSpeed
@@ -49,17 +57,20 @@ InputCheck:
 	# Get the input from the keyboard
 	read_keyboard ($t1)
 
-	# Move
-	   bne  $t1, 119, move_down
-	   move_up($s3)
-move_down: bne  $t1, 115, move_left
-	   move_down($s3)
-move_left: bne  $t1, 97, move_right
-	   move_left($s3)
-move_right:bne  $t1, 100, continue
-           move_right($s3)
-           continue:
-           
+	# Move Pac man
+	bne  $t1, 119, move_down
+	move_up($s3)
+move_down:
+	bne  $t1, 115, move_left
+	move_down($s3)
+move_left:
+	bne  $t1, 97, move_right
+	move_left($s3)
+move_right:
+	bne  $t1, 100, continue
+        move_right($s3)
+continue:
+
      
 j InputCheck
 

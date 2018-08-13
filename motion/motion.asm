@@ -1,12 +1,12 @@
 # Este arquivo contem procedimentos para efetuar o movimento dos personagens no labirinto
 
 # TEST
-.data
-	.space 4096
+#.data
+#	.space 4096
 
-.include "../graph/data.bin"
-.include "../display/screen.asm"
-.include "../system/point.asm"
+#.include "../graph/data.bin"
+#.include "../display/screen.asm"
+#.include "../system/point.asm"
 
 
 .include "pacman.asm"
@@ -36,51 +36,51 @@
 .end_macro
 
 # TEST
-.text
+#.text
+#
+#li $s0, 0x10010000
+#li $s1, 256
+#la $s2, graph
+#
+#draw_maze ($s0, $s2, $s1)
+#
+#addi $s3, $s2, 576
+#addi $s4, $s2, 480
+#
+#
+#sleep (1000)
+#move_blue_left ($s3)
+#move_red_right ($s4)
+#sleep (1000)
+#move_blue_left ($s3)
+#move_red_right ($s4)
+#sleep (1000)
+#
+#move_blue_down ($s3)
+#move_red_right ($s4)
+#sleep (1000)
+#move_blue_down ($s3)
+#move_red_right ($s4)
+#sleep (1000)
 
-li $s0, 0x10010000
-li $s1, 256
-la $s2, graph
+#move_blue_right ($s3)
+#move_red_down ($s4)
+#sleep (1000)
+#move_blue_right ($s3)
+#move_red_down ($s4)
+#sleep (1000)
 
-draw_maze ($s0, $s2, $s1)
+#move_blue_up ($s3)
+#move_blue_up ($s3)
 
-addi $s3, $s2, 576
-addi $s4, $s2, 480
+#move_blue_left ($s3)
+#move_blue_left ($s3)
 
+#move_blue_down ($s3)
+#move_blue_down ($s3)
 
-sleep (1000)
-move_blue_left ($s3)
-move_red_right ($s4)
-sleep (1000)
-move_blue_left ($s3)
-move_red_right ($s4)
-sleep (1000)
+#move_blue_right ($s3)
+#move_blue_right ($s3)
 
-move_blue_down ($s3)
-move_red_right ($s4)
-sleep (1000)
-move_blue_down ($s3)
-move_red_right ($s4)
-sleep (1000)
-
-move_blue_right ($s3)
-move_red_down ($s4)
-sleep (1000)
-move_blue_right ($s3)
-move_red_down ($s4)
-sleep (1000)
-
-move_blue_up ($s3)
-move_blue_up ($s3)
-
-move_blue_left ($s3)
-move_blue_left ($s3)
-
-move_blue_down ($s3)
-move_blue_down ($s3)
-
-move_blue_right ($s3)
-move_blue_right ($s3)
-
-move_blue_up ($s3)
-move_blue_up ($s3)
+#move_blue_up ($s3)
+#move_blue_up ($s3)
