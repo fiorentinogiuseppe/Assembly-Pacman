@@ -4,6 +4,7 @@
 	.include "graph/data.bin"
 	.include "display/screen.asm"
 	.include "system/point.asm"
+	.include "system/utils.asm"
 	.include "motion/motion.asm"
 	gameSpeed:	.word 100
 
@@ -43,13 +44,12 @@ addi $s3, $s2, 480
 	
 InputCheck:
 	lw $a0, gameSpeed
-	jal Pause
+	sleep (500)
 
-	#get the input from the keyboard
-	li $t0, 0xffff0004
-	lw $t1, ($t0)
+	# Get the input from the keyboard
+	read_keyboard ($t1)
 
-	#move
+	# Move
 	   bne  $t1, 119, move_down
 	   move_up($s3)
 move_down: bne  $t1, 115, move_left
@@ -58,10 +58,8 @@ move_left: bne  $t1, 97, move_right
 	   move_left($s3)
 move_right:bne  $t1, 100, continue
            move_right($s3)
-           continue: 	
-           	li $t1, 0
-           	li $t2, 0xffff0004
-           	sw $t1,0($t2)
+           continue:
+           
      
 j InputCheck
 
