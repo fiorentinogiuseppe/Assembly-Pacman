@@ -67,6 +67,7 @@
 		bne $s3, 0x5, draw_maze_loop_not_inky		# O no atual nao e um fantasma azul inky
 		li $s4, 0x0000ffff				# Carregar o valor da cor do fantasma azul inky
 		sw $s4, 0($s1)					# "Pintar" o pixel
+		sw $zero, 0($s2)				# Ajustar o valor daquele ponto para zero, pois os fantasmas nao serao representadas no grafo
 		j draw_maze_loop_finalization
 		
 		draw_maze_loop_not_inky:
@@ -75,6 +76,7 @@
 		bne $s3, 0x6, draw_maze_loop_not_blinky		# O no atual nao e um fantasma vermelho blinky
 		li $s4, 0x00ff0000				# Carregar o valor da cor do fantasma vermelho blinky
 		sw $s4, 0($s1)					# "Pintar" o pixel
+		sw $zero, 0($s2)				# Ajustar o valor daquele ponto para zero, pois os fantasmas nao serao representadas no grafo
 		j draw_maze_loop_finalization
 		
 		draw_maze_loop_not_blinky:
@@ -83,6 +85,7 @@
 		bne $s3, 0x7, draw_maze_loop_not_clyde		# O no atual nao e um fantasma laranja clyde
 		li $s4, 0x00ffa500				# Carregar o valor da cor do fantasma laranja clyde
 		sw $s4, 0($s1)					# "Pintar" o pixel
+		sw $zero, 0($s2)				# Ajustar o valor daquele ponto para zero, pois os fantasmas nao serao representadas no grafo
 		j draw_maze_loop_finalization
 		
 		draw_maze_loop_not_clyde:
@@ -91,6 +94,7 @@
 		bne $s3, 0x8, draw_maze_loop_not_pinky		# O no atual nao e um fantasma rosa pinky
 		li $s4, 0x00ffc0cb				# Carregar o valor da cor do fantasma rosa pinky
 		sw $s4, 0($s1)					# "Pintar" o pixel
+		sw $zero, 0($s2)				# Ajustar o valor daquele ponto para zero, pois os fantasmas nao serao representadas no grafo
 		j draw_maze_loop_finalization
 		
 		draw_maze_loop_not_pinky:

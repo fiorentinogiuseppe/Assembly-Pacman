@@ -11,8 +11,8 @@
 	sw $s1, 4($sp)
 	sw $s2, 8($sp)
 	sw $s3, 12($sp)
-	sw %red_ghost_position, 16($sp)
-	sw $s4, 20($sp)
+	sw $s4, 16($sp)
+	sw %red_ghost_position, 20($sp)
 	# Push to stack
 	
 	add $s0, $zero, %red_ghost_position	# <$s0> armazenara o endereco do no onde o fantasma vermelho esta
@@ -27,8 +27,8 @@
 	beq $s3, 0x4, move_red_left_end		# Se o no da esquerda e parede fazer nada
 	
 	# Verificar se o elemento a esquerda e um espaco vazio
-	bne $s3, 0x0,  move_red_left_not_empty_space	# Se o no da esquerda nao e um espaco pular para proxima verificacao
-	sw $s1, 16($sp)					# Fazer com que o registrador responsavel por apontar o fantasma vermelho aponte para o no da esquerda
+	bne $s3, 0x0, move_red_left_not_empty_space	# Se o no da esquerda nao e um espaco pular para proxima verificacao
+	sw $s1, 20($sp)					# Fazer com que o registrador responsavel por apontar o fantasma vermelho aponte para o no da esquerda
 	lw $s2, 20($s1)			#
 	li $s3, 0x00ff0000		# Pintar o pixel do no da esquerda na tela com a cor respectiva do fantasma vermelho
 	sw $s3, 0($s2)			#
@@ -38,7 +38,7 @@
 	
 	# Verificar se o elemento a esquerda e um pac dot
 	bne $s3, 0x1, move_red_left_not_pac_dot	# Se o no da esquerda nao e um pac dot pular para proxima verificacao
-	sw $s1, 16($sp)					# Fazer com que o registrador responsavel por apontar o fantasma vermelho aponte para o no da esquerda
+	sw $s1, 20($sp)					# Fazer com que o registrador responsavel por apontar o fantasma vermelho aponte para o no da esquerda
 	lw $s2, 20($s1)			#
 	li $s3, 0x00ff0000		# Pintar o pixel do no da esquerda na tela com a cor respectiva do fantasma vermelho
 	sw $s3, 0($s2)			#
@@ -74,8 +74,8 @@
 	lw $s1, 4($sp)
 	lw $s2, 8($sp)
 	lw $s3, 12($sp)
-	lw %red_ghost_position, 16($sp)
-	lw $s4, 20($sp)
+	lw $s4, 16($sp)
+	lw %red_ghost_position, 20($sp)
 	addi $sp, $sp, 24
 	# Pop from stack
 .end_macro
@@ -97,8 +97,8 @@
 	sw $s1, 4($sp)
 	sw $s2, 8($sp)
 	sw $s3, 12($sp)
-	sw %red_ghost_position, 16($sp)
-	sw $s4, 20($sp)
+	sw $s4, 16($sp)
+	sw %red_ghost_position, 20($sp)
 	# Push to stack
 	
 	add $s0, $zero, %red_ghost_position	# <$s0> armazenara o endereco do no onde o fantasma vermelho esta
@@ -114,7 +114,7 @@
 	
 	# Verificar se o elemento a direita e um espaco vazio
 	bne $s3, 0x0, move_red_right_not_empty_space	# Se o no da direita nao e um espaco pular para proxima verificacao
-	sw $s1, 16($sp)					# Fazer com que o registrador responsavel por apontar o fantasma vermelho aponte para o no da direita
+	sw $s1, 20($sp)					# Fazer com que o registrador responsavel por apontar o fantasma vermelho aponte para o no da direita
 	lw $s2, 20($s1)			#
 	li $s3, 0x00ff0000		# Pintar o pixel do no da direita na tela com a cor respectiva do fantasma vermelho
 	sw $s3, 0($s2)			#
@@ -124,7 +124,7 @@
 	
 	# Verificar se o elemento a direita e um pac dot
 	bne $s3, 0x1, move_red_right_not_pac_dot	# Se o no da direita nao e um pac dot pular para proxima verificacao
-	sw $s1, 16($sp)					# Fazer com que o registrador responsavel por apontar o fantasma vermelho aponte para o no da direita
+	sw $s1, 20($sp)					# Fazer com que o registrador responsavel por apontar o fantasma vermelho aponte para o no da direita
 	lw $s2, 20($s1)			#
 	li $s3, 0x00ff0000		# Pintar o pixel do no da direita na tela com a cor respectiva do fantasma vermelho
 	sw $s3, 0($s2)			#
@@ -160,8 +160,8 @@
 	lw $s1, 4($sp)
 	lw $s2, 8($sp)
 	lw $s3, 12($sp)
-	lw %red_ghost_position, 16($sp)
-	lw $s4, 20($sp)
+	lw $s4, 16($sp)
+	lw %red_ghost_position, 20($sp)
 	addi $sp, $sp, 24
 	# Pop from stack
 .end_macro
@@ -183,8 +183,8 @@
 	sw $s1, 4($sp)
 	sw $s2, 8($sp)
 	sw $s3, 12($sp)
-	sw %red_ghost_position, 16($sp)
-	sw $s4, 20($sp)
+	sw $s4, 16($sp)
+	sw %red_ghost_position, 20($sp)
 	# Push to stack
 	
 	add $s0, $zero, %red_ghost_position	# <$s0> armazenara o endereco do no onde o fantasma vermelho esta
@@ -200,7 +200,7 @@
 	
 	# Verificar se o elemento a cima e um espaco vazio
 	bne $s3, 0x0, move_red_up_not_empty_space	# Se o no de cima nao e um espaco pular para proxima verificacao
-	sw $s1, 16($sp)					# Fazer com que o registrador responsavel por apontar o fantasma vermelho aponte para o no de cima
+	sw $s1, 20($sp)					# Fazer com que o registrador responsavel por apontar o fantasma vermelho aponte para o no de cima
 	lw $s2, 20($s1)			#
 	li $s3, 0x00ff0000		# Pintar o pixel do no de cima na tela com a cor respectiva do fantasma vermelho
 	sw $s3, 0($s2)			#
@@ -210,7 +210,7 @@
 	
 	# Verificar se o elemento a cima e um pac dot
 	bne $s3, 0x1, move_red_up_not_pac_dot	# Se o no de cima nao e um pac dot pular para proxima verificacao
-	sw $s1, 16($sp)				# Fazer com que o registrador responsavel por apontar o fantasma vermelho aponte para o no de cima
+	sw $s1, 20($sp)				# Fazer com que o registrador responsavel por apontar o fantasma vermelho aponte para o no de cima
 	lw $s2, 20($s1)			#
 	li $s3, 0x00ff0000		# Pintar o pixel do no de cima na tela com a cor respectiva do fantasma vermelho
 	sw $s3, 0($s2)			#
@@ -246,8 +246,8 @@
 	lw $s1, 4($sp)
 	lw $s2, 8($sp)
 	lw $s3, 12($sp)
-	lw %red_ghost_position, 16($sp)
-	lw $s4, 20($sp)
+	lw $s4, 16($sp)
+	lw %red_ghost_position, 20($sp)
 	addi $sp, $sp, 24
 	# Pop from stack
 .end_macro
@@ -269,8 +269,8 @@
 	sw $s1, 4($sp)
 	sw $s2, 8($sp)
 	sw $s3, 12($sp)
-	sw %red_ghost_position, 16($sp)
-	sw $s4, 20($sp)
+	sw $s4, 16($sp)
+	sw %red_ghost_position, 20($sp)
 	# Push to stack
 	
 	add $s0, $zero, %red_ghost_position	# <$s0> armazenara o endereco do no onde o fantasma vermelho esta
@@ -286,7 +286,7 @@
 	
 	# Verificar se o elemento a baixo e um espaco vazio
 	bne $s3, 0x0, move_red_down_not_empty_space	# Se o no de baixo nao e um espaco pular para proxima verificacao
-	sw $s1, 16($sp)					# Fazer com que o registrador responsavel por apontar o fantasma vermelho aponte para o no de baixo
+	sw $s1, 20($sp)					# Fazer com que o registrador responsavel por apontar o fantasma vermelho aponte para o no de baixo
 	lw $s2, 20($s1)			#
 	li $s3, 0x00ff0000		# Pintar o pixel do no de baixo na tela com a cor respectiva do fantasma vermelho
 	sw $s3, 0($s2)			#
@@ -296,7 +296,7 @@
 	
 	# Verificar se o elemento a baixo e um pac dot
 	bne $s3, 0x1, move_red_down_not_pac_dot	# Se o no de baixo nao e um pac dot pular para proxima verificacao
-	sw $s1, 16($sp)					# Fazer com que o registrador responsavel por apontar o fantasma vermelho aponte para o no de baixo
+	sw $s1, 20($sp)					# Fazer com que o registrador responsavel por apontar o fantasma vermelho aponte para o no de baixo
 	lw $s2, 20($s1)			#
 	li $s3, 0x00ff0000		# Pintar o pixel do no de baixo na tela com a cor respectiva do fantasma vermelho
 	sw $s3, 0($s2)			#
@@ -332,8 +332,8 @@
 	lw $s1, 4($sp)
 	lw $s2, 8($sp)
 	lw $s3, 12($sp)
-	lw %red_ghost_position, 16($sp)
-	lw $s4, 20($sp)
+	lw $s4, 16($sp)
+	lw %red_ghost_position, 20($sp)
 	addi $sp, $sp, 24
 	# Pop from stack
 .end_macro
