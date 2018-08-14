@@ -39,7 +39,7 @@
 	sw %number,		44($sp)
 	# Push to stack
 	
-	add $t0, $zero, %number
+	lw $t0, 44($sp)		# <$t0> %number
 	li $t1, 10		# Carregar a base numerica da divisao
 	
 	# Extrair primeiro digito (menor ordem)
@@ -456,8 +456,8 @@
 	# Push to stack
 	
 	lw $t1, 16($sp)		# <$t1> initial_pixel
-	addi $s0, $zero, 0x00000000
-	addi $s1, $zero, 0x00ffff3c
+	li $s0, 0x00000000
+	li $s1, 0x00ffff3c
 	
 	# Primeira linha
 	sw $s0, 0($t1)
@@ -512,15 +512,17 @@
 # %life_number		-> registrador com quantidade de vidas
 .macro draw_life_number (%initial_pixel, %life_number)
 	# Push to stack
-	addi $sp, $sp, -16
+	addi $sp, $sp, -24
 	sw $s0, 0($sp)
 	sw $s1, 4($sp)
-	sw %initial_pixel,	8($sp)
-	sw %life_number,	12($sp)
+	sw $t0, 8($sp)
+	sw $t1, 12($sp)
+	sw %initial_pixel,	16($sp)
+	sw %life_number,	20($sp)
 	# Push to stack
 	
-	lw $t0, 12($sp)		# <$t0> life_number (iterador)
-	lw $t1, 8($sp)		# <$t1> initial_pixel
+	lw $t0, 20($sp)		# <$t0> life_number (iterador)
+	lw $t1, 16($sp)		# <$t1> initial_pixel
 	
 	draw_life_number_loop:
 	bge $zero, $t0, draw_life_number_end	# Se o numero de representacoes tiver acabado finalizar
@@ -535,9 +537,11 @@
 	# Pop from stack
 	lw $s0, 0($sp)
 	lw $s1, 4($sp)
-	lw %initial_pixel,	8($sp)
-	lw %life_number,	12($sp)
-	addi $sp, $sp, 16
+	lw $t0, 8($sp)
+	lw $t1, 12($sp)
+	lw %initial_pixel,	16($sp)
+	lw %life_number,	20($sp)
+	addi $sp, $sp, 24
 	# Pop from stack
 .end_macro
 

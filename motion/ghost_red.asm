@@ -15,7 +15,7 @@
 	sw %red_ghost_position, 20($sp)
 	# Push to stack
 	
-	add $s0, $zero, %red_ghost_position	# <$s0> armazenara o endereco do no onde o fantasma vermelho esta
+	lw $s0, 20($sp) 			# <$s0> armazenara o endereco do no onde o fantasma vermelho esta
 	lw $s4, 0($s0)				# <$s4> armazenara o valor do no onde o fantasma vermelho se encontra
 	
 	lw $s1, 16($s0)				# 
@@ -101,7 +101,7 @@
 	sw %red_ghost_position, 20($sp)
 	# Push to stack
 	
-	add $s0, $zero, %red_ghost_position	# <$s0> armazenara o endereco do no onde o fantasma vermelho esta
+	lw $s0, 20($sp) 			# <$s0> armazenara o endereco do no onde o fantasma vermelho esta
 	lw $s4, 0($s0)				# <$s4> armazenara o valor do no onde o fantasma vermelho se encontra
 	
 	lw $s1, 8($s0)				# 
@@ -187,7 +187,7 @@
 	sw %red_ghost_position, 20($sp)
 	# Push to stack
 	
-	add $s0, $zero, %red_ghost_position	# <$s0> armazenara o endereco do no onde o fantasma vermelho esta
+	lw $s0, 20($sp) 			# <$s0> armazenara o endereco do no onde o fantasma vermelho esta
 	lw $s4, 0($s0)				# <$s4> armazenara o valor do no onde o fantasma vermelho se encontra
 	
 	lw $s1, 4($s0)				# 
@@ -273,7 +273,7 @@
 	sw %red_ghost_position, 20($sp)
 	# Push to stack
 	
-	add $s0, $zero, %red_ghost_position	# <$s0> armazenara o endereco do no onde o fantasma vermelho esta
+	lw $s0, 20($sp) 			# <$s0> armazenara o endereco do no onde o fantasma vermelho esta
 	lw $s4, 0($s0)				# <$s4> armazenara o valor do no onde o fantasma vermelho se encontra
 	
 	lw $s1, 12($s0)				# 
@@ -361,13 +361,6 @@
 	
 	lw $s0, 20($sp)	# red_ghost_position
 	
-	# Loop
-	# random direction
-	li $a0, 1	#
-	li $a1, 40	# set seed
-	li $v0, 40	#
-	syscall
-	
 	li $a0, 1	#
 	li $a1, 4	# get randon range int number
 	li $v0, 42	#
@@ -402,6 +395,8 @@
 	# TODO
 	# verify if the move was achieved
 		# if no reexecute loop
+	
+	sw $s0, 20($sp)
 	
 	# Pop from stack
 	lw $s0, 0($sp)

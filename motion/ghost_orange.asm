@@ -15,7 +15,7 @@
 	sw %orange_ghost_position, 20($sp)
 	# Push to stack
 	
-	add $s0, $zero, %orange_ghost_position	# <$s0> armazenara o endereco do no onde o fantasma laranja esta
+	lw $s0, 20($sp) 			# <$s0> armazenara o endereco do no onde o fantasma laranja esta
 	lw $s4, 0($s0)				# <$s4> armazenara o valor do no onde o fantasma laranja se encontra
 	
 	lw $s1, 16($s0)				# 
@@ -101,7 +101,7 @@
 	sw %orange_ghost_position, 20($sp)
 	# Push to stack
 	
-	add $s0, $zero, %orange_ghost_position	# <$s0> armazenara o endereco do no onde o fantasma laranja esta
+	lw $s0, 20($sp) 			# <$s0> armazenara o endereco do no onde o fantasma laranja esta
 	lw $s4, 0($s0)				# <$s4> armazenara o valor do no onde o fantasma laranja se encontra
 	
 	lw $s1, 8($s0)				# 
@@ -187,7 +187,7 @@
 	sw %orange_ghost_position, 20($sp)
 	# Push to stack
 	
-	add $s0, $zero, %orange_ghost_position	# <$s0> armazenara o endereco do no onde o fantasma laranja esta
+	lw $s0, 20($sp) 			# <$s0> armazenara o endereco do no onde o fantasma laranja esta
 	lw $s4, 0($s0)				# <$s4> armazenara o valor do no onde o fantasma laranja se encontra
 	
 	lw $s1, 4($s0)				# 
@@ -273,7 +273,7 @@
 	sw %orange_ghost_position, 20($sp)
 	# Push to stack
 	
-	add $s0, $zero, %orange_ghost_position	# <$s0> armazenara o endereco do no onde o fantasma laranja esta
+	lw $s0, 20($sp) 			# <$s0> armazenara o endereco do no onde o fantasma laranja esta
 	lw $s4, 0($s0)				# <$s4> armazenara o valor do no onde o fantasma laranja se encontra
 	
 	lw $s1, 12($s0)				# 
@@ -347,7 +347,7 @@
 # Procedimento para mover um fantasma de maneira aleatoria
 # %ghost_position	-> registrador que contem a posicao do no onde esta o fantasma
 # Ao final do procedimento o registrador %ghost_position
-# contera o endereco para nova posicao do fantasma azul no grafo
+# contera o endereco para nova posicao do pacman no grafo
 .macro move_orange_ghost (%ghost_position)
 	# Push to stack
 	addi $sp, $sp, -24
@@ -359,14 +359,7 @@
 	sw %ghost_position, 20($sp)
 	# Push to stack
 	
-	lw $s0, 20($sp)	# blue_ghost_position
-	
-	# Loop
-	# random direction
-	li $a0, 1	#
-	li $a1, 40	# set seed
-	li $v0, 40	#
-	syscall
+	lw $s0, 20($sp)	# orange_ghost_position
 	
 	li $a0, 1	#
 	li $a1, 4	# get randon range int number
@@ -402,6 +395,8 @@
 	# TODO
 	# verify if the move was achieved
 		# if no reexecute loop
+	
+	sw $s0, 20($sp)
 	
 	# Pop from stack
 	lw $s0, 0($sp)

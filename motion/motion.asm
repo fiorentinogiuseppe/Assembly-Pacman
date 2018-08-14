@@ -29,9 +29,9 @@
 	syscall
 	
 	# Pop from stack
-	addi $sp, $sp, 8
 	lw $a0, 0($sp)
 	lw $v0, 4($sp)
+	addi $sp, $sp, 8
 	# Pop from stack
 .end_macro
 

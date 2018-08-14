@@ -13,19 +13,22 @@
 # %total_number_pixels	-> registrador que contem numero total de pixels a serem "pintados"
 .macro draw_maze (%initial_address, %graph_address, %total_number_pixels)
 	# Push to stack
-	addi $sp, $sp, -24
+	addi $sp, $sp, -36
 	sw $s0, 0($sp)
 	sw $s1, 4($sp)
 	sw $s2, 8($sp)
 	sw $s3, 12($sp)
 	sw $s4, 16($sp)
 	sw $s5, 20($sp)
+	sw %initial_address, 24($sp)
+	sw %graph_address, 28($sp)
+	sw %total_number_pixels, 32($sp)
 	# Push to stack
 	
-	add $s5, $zero, %total_number_pixels	# <$s5> sera utilizado para armazenar o numero total de pixels
-	add $s1, $zero, %initial_address	# <$s1> sera utilizado para armazenar endereco de onde salvar os pixels
-	add $s2, $zero, %graph_address		# <$s2> sera utilizado para armazenar endereco os nos do grafo em questao
-	add $s0, $zero, $zero			# <$s0> sera utilizado para contar as iteracoes
+	lw $s5, 32($sp)		# <$s5> sera utilizado para armazenar o numero total de pixels
+	lw $s1, 24($sp)		# <$s1> sera utilizado para armazenar endereco de onde salvar os pixels
+	lw $s2, 28($sp)		# <$s2> sera utilizado para armazenar endereco dos nos do grafo em questao
+	add $s0, $zero, $zero	# <$s0> sera utilizado para contar as iteracoes
 	draw_maze_loop:
 		bge $s0, $s5, draw_maze_loop_end	# Se foi atingido o numero total de pixels
 		
@@ -115,7 +118,10 @@
 	lw $s3, 12($sp)
 	lw $s4, 16($sp)
 	lw $s5, 20($sp)
-	addi $sp, $sp, 24
+	lw %initial_address, 24($sp)
+	lw %graph_address, 28($sp)
+	lw %total_number_pixels, 32($sp)
+	addi $sp, $sp, 36
 	# Pop from stack
 
 .end_macro

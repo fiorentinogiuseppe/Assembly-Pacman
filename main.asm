@@ -10,6 +10,13 @@
 	gameSpeed:	.word 100
 
 .text
+
+# set random seed
+li $a0, 1	#
+li $a1, 7	# set seed
+li $v0, 40	#
+syscall
+
 ClearRegisters:
 
 	li $v0, 0
@@ -34,9 +41,10 @@ ClearRegisters:
 	li $s4, 0		
 main: 
 
+# Loop
 
 li $s0, 0x10010000	# Endereco inicial
-li $s1, 16384		# 64 x 64 x 4 = 4096 Pixels x 4 bytes		
+li $s1, 4096		# 64 x 64 = 4096 Pixels		
 la $s2, graph		# Endereco do grafo
 
 # <$a0> Fantasma azul
@@ -45,12 +53,16 @@ la $s2, graph		# Endereco do grafo
 # <$a3> Fantasma rosa
 
 # <$s3> Pacman
-addi $s3, $s2, 480	# TODO adicionar o endereco do pacman no grafo
-
-addi $a0, $s3, 24
-addi $a1, $a0, 24
-addi $a2, $a1, 24
-addi $a3, $a2, 24
+li $s3, 31440
+add $s3, $s3, $s2
+li $a0, 46800
+add $a0, $a0, $s2
+li $a1, 62160
+add $a1, $a1, $s2
+li $a2, 77520
+add $a2, $a2, $s2
+li $a3, 92880
+add $a3, $a3, $s2
 
 # <$s4> Quantidade de vidas
 addi $s4, $zero, 3
@@ -63,13 +75,14 @@ add $s6, $zero, $zero
 
 draw_maze ($s0, $s2, $s1)
 
-
+li $t1, 4
 default_position ($s3, $a0, $a1, $a2, $a3)
 	
 main_stage_one:
 	sleep (500)
 
 	# Pintar na tela pontuacao
+	
 	
 	# Pintar na tela vidas
 	li $t0, 14752
@@ -95,17 +108,20 @@ move_right_stage_one:
 continue_stage_one:
 
 	# mover fantasmas
+	collision_detection ($s3, $a0, $a1, $a2, $a3, $s4)
 	move_blue_ghost ($a0)
+	collision_detection ($s3, $a0, $a1, $a2, $a3, $s4)
 	move_red_ghost ($a1)
+	collision_detection ($s3, $a0, $a1, $a2, $a3, $s4)
 	move_orange_ghost ($a2)
+	collision_detection ($s3, $a0, $a1, $a2, $a3, $s4)
 	move_pink_ghost ($a3)
-	
 	collision_detection ($s3, $a0, $a1, $a2, $a3, $s4)
 	
 	# Verificacao fim de jogo ou de estagio
         beq $s4, $zero, main_game_over			# Fim de jogo vidas acabadas
         
-        beq $s6, 100, main_stage_one_end		# Fim de estagio comidas 100 pac dots
+        beq $s6, 1, main_stage_one_end		# Fim de estagio comidas 100 pac dots
 
 j main_stage_one
 main_stage_one_end:
@@ -120,10 +136,12 @@ main_stage_two:
 
 	# Pintar na tela pontuacao
 	
+	
 	# Pintar na tela vidas
 	li $t0, 14752
 	add $t0, $t0, $s0
 	draw_life_number ($t0, $s4)
+	
 
 	# Get the input from the keyboard
 	read_keyboard ($t1)
@@ -143,11 +161,14 @@ move_right_stage_two:
 continue_stage_two:
 
 	# mover fantasmas
+	collision_detection ($s3, $a0, $a1, $a2, $a3, $s4)
 	move_blue_ghost ($a0)
+	collision_detection ($s3, $a0, $a1, $a2, $a3, $s4)
 	move_red_ghost ($a1)
+	collision_detection ($s3, $a0, $a1, $a2, $a3, $s4)
 	move_orange_ghost ($a2)
+	collision_detection ($s3, $a0, $a1, $a2, $a3, $s4)
 	move_pink_ghost ($a3)
-	
 	collision_detection ($s3, $a0, $a1, $a2, $a3, $s4)
 	
 	# Verificacao fim de jogo ou de estagio

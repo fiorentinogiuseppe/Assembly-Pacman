@@ -69,7 +69,7 @@
 	lw $s6, 20($s0)			#
 	sw $zero, 0($s6)		# Pintar o pixel onde o pacman estava com espaco vazio
 	sw $zero, 0($s0)		# Setar o no do grafo onde o pacman estava com valor de espaco vazio
-	addi $s0, $s5, 480		# <$s0> contera o novo endereco para o pacman ajustar o offset (bytes no grafo) conforme necessidade 
+	addi $s0, $s5, 31440		# <$s0> contera o novo endereco para o pacman ajustar o offset (bytes no grafo) conforme necessidade 
 	li $s7, 0x2			#
 	sw $s7, 0($s0)			# Setar o no do grafo onde o pacman ficara com valor do pacman
 	li $s6, 0x00ffff3c		#
@@ -84,7 +84,7 @@
 	bne $s6, 0x0, default_position_blue_not_empty_space	# Se o valor do no nao for espaco vazio pular para proxima verificacao
 	lw $s6, 20($s1)		#
 	sw $zero, 0($s6)	# Pintar o pixel onde o fantasma azul estava com espaco vazio
-	addi $s1, $s5, 504	# <$s1> contera o novo endereco para o fantasma azul ajustar o offset (bytes no grafo) conforme necessidade 
+	addi $s1, $s5, 46800	# <$s1> contera o novo endereco para o fantasma azul ajustar o offset (bytes no grafo) conforme necessidade 
 	li $s7, 0x0000ffff	#
 	lw $s6, 20($s1)		# Pintar o pixel onde o fantasma azul estara com a sua respectiva cor
 	sw $s7, 0($s6)		#
@@ -96,7 +96,7 @@
 	lw $s6, 20($s1)		#
 	li $s7, 0x00ffffff	# Pintar o pixel onde o fantasma azul estava com espaco vazio
 	sw $s7, 0($s6)		#
-	addi $s1, $s5, 504	# <$s1> contera o novo endereco para o fantasma azul ajustar o offset (bytes no grafo) conforme necessidade 
+	addi $s1, $s5, 46800	# <$s1> contera o novo endereco para o fantasma azul ajustar o offset (bytes no grafo) conforme necessidade 
 	li $s7, 0x0000ffff	#
 	lw $s6, 20($s1)		# Pintar o pixel onde o fantasma azul estara com a sua respectiva cor
 	sw $s7, 0($s6)		#
@@ -113,7 +113,7 @@
 	bne $s6, 0x0, default_position_red_not_empty_space	# Se o valor do no nao for espaco vazio pular para proxima verificacao
 	lw $s6, 20($s2)		#
 	sw $zero, 0($s6)	# Pintar o pixel onde o fantasma vermelho estava com espaco vazio
-	addi $s2, $s5, 528	# <$s2> contera o novo endereco para o fantasma vermelho ajustar o offset (bytes no grafo) conforme necessidade 
+	addi $s2, $s5, 62160	# <$s2> contera o novo endereco para o fantasma vermelho ajustar o offset (bytes no grafo) conforme necessidade 
 	li $s7, 0x00ff0000	#
 	lw $s6, 20($s2)		# Pintar o pixel onde o fantasma vermelho estara com a sua respectiva cor
 	sw $s7, 0($s6)		#
@@ -125,7 +125,7 @@
 	lw $s6, 20($s2)		#
 	li $s7, 0x00ffffff	# Pintar o pixel onde o fantasma vermelho estava com espaco vazio
 	sw $s7, 0($s6)		#
-	addi $s2, $s5, 528	# <$s2> contera o novo endereco para o fantasma vermelho ajustar o offset (bytes no grafo) conforme necessidade 
+	addi $s2, $s5, 62160	# <$s2> contera o novo endereco para o fantasma vermelho ajustar o offset (bytes no grafo) conforme necessidade 
 	li $s7, 0x00ff0000	#
 	lw $s6, 20($s2)		# Pintar o pixel onde o fantasma vermelho estara com a sua respectiva cor
 	sw $s7, 0($s6)		#
@@ -142,7 +142,7 @@
 	bne $s6, 0x0, default_position_orange_not_empty_space	# Se o valor do no nao for espaco vazio pular para proxima verificacao
 	lw $s6, 20($s3)		#
 	sw $zero, 0($s6)	# Pintar o pixel onde o fantasma laranja estava com espaco vazio
-	addi $s3, $s5, 552	# <$s3> contera o novo endereco para o fantasma laranja ajustar o offset (bytes no grafo) conforme necessidade 
+	addi $s3, $s5, 77520	# <$s3> contera o novo endereco para o fantasma laranja ajustar o offset (bytes no grafo) conforme necessidade 
 	li $s7, 0x00e68c14	#
 	lw $s6, 20($s3)		# Pintar o pixel onde o fantasma laranja estara com a sua respectiva cor
 	sw $s7, 0($s6)		#
@@ -154,7 +154,7 @@
 	lw $s6, 20($s3)		#
 	li $s7, 0x00ffffff	# Pintar o pixel onde o fantasma laranja estava com espaco vazio
 	sw $s7, 0($s6)		#
-	addi $s3, $s5, 552	# <$s3> contera o novo endereco para o fantasma laranja ajustar o offset (bytes no grafo) conforme necessidade 
+	addi $s3, $s5, 77520	# <$s3> contera o novo endereco para o fantasma laranja ajustar o offset (bytes no grafo) conforme necessidade 
 	li $s7, 0x00e68c14	#
 	lw $s6, 20($s3)		# Pintar o pixel onde o fantasma laranja estara com a sua respectiva cor
 	sw $s7, 0($s6)		#
@@ -171,7 +171,7 @@
 	bne $s6, 0x0, default_position_pink_not_empty_space	# Se o valor do no nao for espaco vazio pular para proxima verificacao
 	lw $s6, 20($s4)		#
 	sw $zero, 0($s6)	# Pintar o pixel onde o fantasma rosa estava com espaco vazio
-	addi $s4, $s5, 576	# <$s4> contera o novo endereco para o fantasma rosa ajustar o offset (bytes no grafo) conforme necessidade 
+	addi $s4, $s5, 92880	# <$s4> contera o novo endereco para o fantasma rosa ajustar o offset (bytes no grafo) conforme necessidade 
 	li $s7, 0x00dca0aa	#
 	lw $s6, 20($s4)		# Pintar o pixel onde o fantasma rosa estara com a sua respectiva cor
 	sw $s7, 0($s6)		#
@@ -183,7 +183,7 @@
 	lw $s6, 20($s4)		#
 	li $s7, 0x00ffffff	# Pintar o pixel onde o fantasma rosa estava com espaco vazio
 	sw $s7, 0($s6)		#
-	addi $s4, $s5, 576	# <$s4> contera o novo endereco para o fantasma rosa ajustar o offset (bytes no grafo) conforme necessidade 
+	addi $s4, $s5, 92880	# <$s4> contera o novo endereco para o fantasma rosa ajustar o offset (bytes no grafo) conforme necessidade 
 	li $s7, 0x00dca0aa	#
 	lw $s6, 20($s4)		# Pintar o pixel onde o fantasma rosa estara com a sua respectiva cor
 	sw $s7, 0($s6)		#

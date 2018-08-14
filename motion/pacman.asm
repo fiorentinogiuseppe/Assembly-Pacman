@@ -38,7 +38,7 @@
 	li $s2, 0x00ffff3c				#
 	lw $s3, 20($s1)
 	sw $s2, 0($s3)					# Pintar o pixel a direita com o pacman
-	sw $s1, 16($sp)					# Modificar a posicao do pacman para o no da direita, quando for carregado da stack o valor sera o atualizado
+	sw $s1, 20($sp)					# Modificar a posicao do pacman para o no da direita, quando for carregado da stack o valor sera o atualizado
 	increment_point($s4, 10)			# Incrementar a pontuacao de 10 unidades
 	sw $s4, 24($sp)					# Salvar pontuacao
 	lw $s1, 28($sp)					#
@@ -57,7 +57,7 @@
 	li $s2, 0x00ffff3c				#
 	lw $s3, 20($s1)
 	sw $s2, 0($s3)					# Pintar o pixel a direita com o pacman
-	sw $s1, 16($sp)					# Modificar a posicao do pacman para o no da direita, quando for carregado da stack o valor sera o atualizado
+	sw $s1, 20($sp)					# Modificar a posicao do pacman para o no da direita, quando for carregado da stack o valor sera o atualizado
 	j move_right_finalization
 	move_right_not_empty_space:
 	
@@ -126,7 +126,7 @@
 	li $s2, 0x00ffff3c				#
 	lw $s3, 20($s1)
 	sw $s2, 0($s3)					# Pintar o pixel de cima com o pacman
-	sw $s1, 16($sp)					# Modificar a posicao do pacman para o no de cima, quando for carregado da stack o valor sera o atualizado
+	sw $s1, 20($sp)					# Modificar a posicao do pacman para o no da direita, quando for carregado da stack o valor sera o atualizado
 	increment_point($s4, 10)			# Incrementar a pontuacao de 10 unidades
 	sw $s4, 24($sp)					# Salvar pontuacao
 	lw $s1, 28($sp)					#
@@ -145,7 +145,7 @@
 	li $s2, 0x00ffff3c				#
 	lw $s3, 20($s1)
 	sw $s2, 0($s3)					# Pintar o pixel de cima com o pacman
-	sw $s1, 16($sp)					# Modificar a posicao do pacman para o no de cima, quando for carregado da stack o valor sera o atualizado
+	sw $s1, 20($sp)					# Modificar a posicao do pacman para o no da direita, quando for carregado da stack o valor sera o atualizado
 	j move_up_finalization
 	move_up_not_empty_space:
 	
@@ -214,7 +214,7 @@
 	li $s2, 0x00ffff3c				#
 	lw $s3, 20($s1)
 	sw $s2, 0($s3)					# Pintar o pixel de baixo com o pacman
-	sw $s1, 16($sp)					# Modificar a posicao do pacman para o no de baixo, quando for carregado da stack o valor sera o atualizado
+	sw $s1, 20($sp)					# Modificar a posicao do pacman para o no da direita, quando for carregado da stack o valor sera o atualizado
 	increment_point($s4, 10)			# Incrementar a pontuacao de 10 unidades
 	sw $s4, 24($sp)					# Salvar pontuacao
 	lw $s1, 28($sp)					#
@@ -233,7 +233,7 @@
 	li $s2, 0x00ffff3c				#
 	lw $s3, 20($s1)
 	sw $s2, 0($s3)					# Pintar o pixel de baixo com o pacman
-	sw $s1, 16($sp)					# Modificar a posicao do pacman para o no de baixo, quando for carregado da stack o valor sera o atualizado
+	sw $s1, 20($sp)					# Modificar a posicao do pacman para o no da direita, quando for carregado da stack o valor sera o atualizado
 	j move_down_finalization
 	move_down_not_empty_space:
 	
@@ -302,7 +302,7 @@
 	li $s2, 0x00ffff3c				#
 	lw $s3, 20($s1)
 	sw $s2, 0($s3)					# Pintar o pixel a esquerda com o pacman
-	sw $s1, 16($sp)					# Modificar a posicao do pacman para o no da esquerda, quando for carregado da stack o valor sera o atualizado
+	sw $s1, 20($sp)					# Modificar a posicao do pacman para o no da direita, quando for carregado da stack o valor sera o atualizado
 	increment_point($s4, 10)			# Incrementar a pontuacao de 10 unidades
 	sw $s4, 24($sp)					# Salvar pontuacao
 	lw $s1, 28($sp)					#
@@ -321,7 +321,7 @@
 	li $s2, 0x00ffff3c				#
 	lw $s3, 20($s1)
 	sw $s2, 0($s3)					# Pintar o pixel a esquerda com o pacman
-	sw $s1, 16($sp)					# Modificar a posicao do pacman para o no da esquerda, quando for carregado da stack o valor sera o atualizado
+	sw $s1, 20($sp)					# Modificar a posicao do pacman para o no da direita, quando for carregado da stack o valor sera o atualizado
 	j move_left_finalization
 	move_left_not_empty_space:
 	
