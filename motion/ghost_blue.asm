@@ -337,3 +337,79 @@
 	addi $sp, $sp, 24
 	# Pop from stack
 .end_macro
+
+
+#############################################################
+#############################################################
+#############################################################
+
+
+# Procedimento para mover um fantasma de maneira aleatoria
+# %ghost_position	-> registrador que contem a posicao do no onde esta o fantasma
+# Ao final do procedimento o registrador %ghost_position
+# contera o endereco para nova posicao do fantasma azul no grafo
+.macro move_blue_ghost (%ghost_position)
+	# Push to stack
+	addi $sp, $sp, -24
+	sw $s0, 0($sp)
+	sw $s1, 4($sp)
+	sw $a0, 8($sp)
+	sw $a1, 12($sp)
+	sw $v0, 16($sp)
+	sw %ghost_position, 20($sp)
+	# Push to stack
+	
+	lw $s0, 20($sp)	# blue_ghost_position
+	
+	# Loop
+	# random direction
+	li $a0, 1	#
+	li $a1, 40	# set seed
+	li $v0, 40	#
+	syscall
+	
+	li $a0, 1	#
+	li $a1, 4	# get randon range int number
+	li $v0, 42	#
+	syscall
+	
+	# move right
+	bne $a0, 0x0, move_blue_ghost_not_right 
+	move_blue_right ($s0)
+	j move_blue_ghost_was_moved
+	move_blue_ghost_not_right:
+	
+	# move left
+	bne $a0, 0x1, move_blue_ghost_not_left 
+	move_blue_left ($s0)
+	j move_blue_ghost_was_moved
+	move_blue_ghost_not_left:
+	
+	# move up
+	bne $a0, 0x2, move_blue_ghost_not_up 
+	move_blue_up ($s0)
+	j move_blue_ghost_was_moved
+	move_blue_ghost_not_up:
+	
+	# move down
+	bne $a0, 0x3, move_blue_ghost_not_down 
+	move_blue_down ($s0)
+	j move_blue_ghost_was_moved
+	move_blue_ghost_not_down:
+	
+	move_blue_ghost_was_moved:
+	
+	# TODO
+	# verify if the move was achieved
+		# if no reexecute loop
+	
+	# Pop from stack
+	lw $s0, 0($sp)
+	lw $s1, 4($sp)
+	lw $a0, 8($sp)
+	lw $a1, 12($sp)
+	lw $v0, 16($sp)
+	lw %ghost_position, 20($sp)
+	addi $sp, $sp, 24
+	# Pop from stack
+.end_macro

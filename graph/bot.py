@@ -44,8 +44,8 @@ ns = { 'office'     :   "urn:oasis:names:tc:opendocument:xmlns:office:1.0",
 # Setup variables
 file_source = 'teste_1.fods'# Fonte
 file_destiny = 'data.bin'   # Destino
-width_of_matrix = 16        # Mudar isto de acordo com a quantidade de linhas
-height_of_matrix = 16       # Mudar isto de acordo com a quantidade de colunas
+width_of_matrix = 64        # Mudar isto de acordo com a quantidade de linhas
+height_of_matrix = 64       # Mudar isto de acordo com a quantidade de colunas
 size_of_structure = 6 * 4			# 6 words of 4 bytes
 # reg_color = '$s0'					# Register where will contain the color
 # reg_memory = '$s1'				# Register where will contain the memory position of first pixel

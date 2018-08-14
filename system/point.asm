@@ -1,10 +1,10 @@
 # Este arquivo ira armazenar todos procedimentos para gerenciamento de pontuacao
 
-.data
-	.space 4096
-
-.include "../graph/data.bin"
-.include "../display/screen.asm"
+#.data
+#	.space 4096
+#
+#.include "../graph/data.bin"
+#.include "../display/screen.asm"
 
 # Procedimento para incrementar pontuacao
 # %incrementation_amount	-> inteiro contem a quantidade de pontuacao que deve ser adicionada
@@ -88,10 +88,10 @@
 	
 	#draw_number ($t0, $s6)	# Pintar setimo digito
 	#addi $t0, $t0, 16
-	#draw_number ($t0, $s5)	# Pintar sexto digito
-	#addi $t0, $t0, 16
-	#draw_number ($t0, $s4)	# Pintar quinto digito
-	#addi $t0, $t0, 16
+	draw_number ($t0, $s5)	# Pintar sexto digito
+	addi $t0, $t0, 16
+	draw_number ($t0, $s4)	# Pintar quinto digito
+	addi $t0, $t0, 16
 	draw_number ($t0, $s3)	# Pintar quarto digito
 	addi $t0, $t0, 16
 	draw_number ($t0, $s2)	# Pintar terceiro digito
@@ -115,7 +115,7 @@
 	lw $t1, 36($sp)
 	lw %initial_pixel,	40($sp)
 	lw %number,		44($sp)
-	addi $sp, $sp, 40
+	addi $sp, $sp, 48
 	# Pop from stack
 .end_macro
 
@@ -130,23 +130,17 @@
 # %number		-> registrador com valor do digito
 .macro draw_number (%initial_pixel, %number)
 	# Push to stack
-	addi $sp, $sp, -48
+	addi $sp, $sp, -24
 	sw $s0, 0($sp)
 	sw $s1, 4($sp)
-	sw $s2, 8($sp)
-	sw $s3, 12($sp)
-	sw $s4, 16($sp)
-	sw $s5, 20($sp)
-	sw $s6, 24($sp)
-	sw $s7, 28($sp)
-	sw $t0, 32($sp)
-	sw $t1, 36($sp)
-	sw %initial_pixel,	40($sp)
-	sw %number,		44($sp)
+	sw $t0, 8($sp)
+	sw $t1, 12($sp)
+	sw %initial_pixel,	16($sp)
+	sw %number,		20($sp)
 	# Push to stack
 	
-	lw $t0, 44($sp)		# <$t0> number
-	lw $t1, 40($sp)		# <$t1> initial_pixel
+	lw $t0, 20($sp)		# <$t0> number
+	lw $t1, 16($sp)		# <$t1> initial_pixel
 	addi $s0, $zero, 0x00000000
 	addi $s1, $zero, 0x00ffffff
 	
@@ -156,22 +150,22 @@
 	sw $s1, 4($t1)
 	sw $s1, 8($t1)
 	# Segunda linha
-	addi $t1, $t1, 64
+	addi $t1, $t1, 256
 	sw $s1, 0($t1)
 	sw $s0, 4($t1)
 	sw $s1, 8($t1)
 	# Terceira linha
-	addi $t1, $t1, 64
+	addi $t1, $t1, 256
 	sw $s1, 0($t1)
 	sw $s0, 4($t1)
 	sw $s1, 8($t1)
 	# Quarta linha
-	addi $t1, $t1, 64
+	addi $t1, $t1, 256
 	sw $s1, 0($t1)
 	sw $s0, 4($t1)
 	sw $s1, 8($t1)
 	# Quinta linha
-	addi $t1, $t1, 64
+	addi $t1, $t1, 256
 	sw $s1, 0($t1)
 	sw $s1, 4($t1)
 	sw $s1, 8($t1)
@@ -184,22 +178,22 @@
 	sw $s1, 4($t1)
 	sw $s0, 8($t1)
 	# Segunda linha
-	addi $t1, $t1, 64
+	addi $t1, $t1, 256
 	sw $s1, 0($t1)
 	sw $s1, 4($t1)
 	sw $s0, 8($t1)
 	# Terceira linha
-	addi $t1, $t1, 64
+	addi $t1, $t1, 256
 	sw $s0, 0($t1)
 	sw $s1, 4($t1)
 	sw $s0, 8($t1)
 	# Quarta linha
-	addi $t1, $t1, 64
+	addi $t1, $t1, 256
 	sw $s0, 0($t1)
 	sw $s1, 4($t1)
 	sw $s0, 8($t1)
 	# Quinta linha
-	addi $t1, $t1, 64
+	addi $t1, $t1, 256
 	sw $s1, 0($t1)
 	sw $s1, 4($t1)
 	sw $s1, 8($t1)
@@ -212,22 +206,22 @@
 	sw $s1, 4($t1)
 	sw $s1, 8($t1)
 	# Segunda linha
-	addi $t1, $t1, 64
+	addi $t1, $t1, 256
 	sw $s0, 0($t1)
 	sw $s0, 4($t1)
 	sw $s1, 8($t1)
 	# Terceira linha
-	addi $t1, $t1, 64
+	addi $t1, $t1, 256
 	sw $s1, 0($t1)
 	sw $s1, 4($t1)
 	sw $s1, 8($t1)
 	# Quarta linha
-	addi $t1, $t1, 64
+	addi $t1, $t1, 256
 	sw $s1, 0($t1)
 	sw $s0, 4($t1)
 	sw $s0, 8($t1)
 	# Quinta linha
-	addi $t1, $t1, 64
+	addi $t1, $t1, 256
 	sw $s1, 0($t1)
 	sw $s1, 4($t1)
 	sw $s1, 8($t1)
@@ -240,22 +234,22 @@
 	sw $s1, 4($t1)
 	sw $s1, 8($t1)
 	# Segunda linha
-	addi $t1, $t1, 64
+	addi $t1, $t1, 256
 	sw $s0, 0($t1)
 	sw $s0, 4($t1)
 	sw $s1, 8($t1)
 	# Terceira linha
-	addi $t1, $t1, 64
+	addi $t1, $t1, 256
 	sw $s1, 0($t1)
 	sw $s1, 4($t1)
 	sw $s1, 8($t1)
 	# Quarta linha
-	addi $t1, $t1, 64
+	addi $t1, $t1, 256
 	sw $s0, 0($t1)
 	sw $s0, 4($t1)
 	sw $s1, 8($t1)
 	# Quinta linha
-	addi $t1, $t1, 64
+	addi $t1, $t1, 256
 	sw $s1, 0($t1)
 	sw $s1, 4($t1)
 	sw $s1, 8($t1)
@@ -268,22 +262,22 @@
 	sw $s0, 4($t1)
 	sw $s1, 8($t1)
 	# Segunda linha
-	addi $t1, $t1, 64
+	addi $t1, $t1, 256
 	sw $s1, 0($t1)
 	sw $s0, 4($t1)
 	sw $s1, 8($t1)
 	# Terceira linha
-	addi $t1, $t1, 64
+	addi $t1, $t1, 256
 	sw $s1, 0($t1)
 	sw $s1, 4($t1)
 	sw $s1, 8($t1)
 	# Quarta linha
-	addi $t1, $t1, 64
+	addi $t1, $t1, 256
 	sw $s0, 0($t1)
 	sw $s0, 4($t1)
 	sw $s1, 8($t1)
 	# Quinta linha
-	addi $t1, $t1, 64
+	addi $t1, $t1, 256
 	sw $s0, 0($t1)
 	sw $s0, 4($t1)
 	sw $s1, 8($t1)
@@ -296,22 +290,22 @@
 	sw $s1, 4($t1)
 	sw $s1, 8($t1)
 	# Segunda linha
-	addi $t1, $t1, 64
+	addi $t1, $t1, 256
 	sw $s1, 0($t1)
 	sw $s0, 4($t1)
 	sw $s0, 8($t1)
 	# Terceira linha
-	addi $t1, $t1, 64
+	addi $t1, $t1, 256
 	sw $s1, 0($t1)
 	sw $s1, 4($t1)
 	sw $s1, 8($t1)
 	# Quarta linha
-	addi $t1, $t1, 64
+	addi $t1, $t1, 256
 	sw $s0, 0($t1)
 	sw $s0, 4($t1)
 	sw $s1, 8($t1)
 	# Quinta linha
-	addi $t1, $t1, 64
+	addi $t1, $t1, 256
 	sw $s1, 0($t1)
 	sw $s1, 4($t1)
 	sw $s1, 8($t1)
@@ -324,22 +318,22 @@
 	sw $s1, 4($t1)
 	sw $s1, 8($t1)
 	# Segunda linha
-	addi $t1, $t1, 64
+	addi $t1, $t1, 256
 	sw $s1, 0($t1)
 	sw $s0, 4($t1)
 	sw $s0, 8($t1)
 	# Terceira linha
-	addi $t1, $t1, 64
+	addi $t1, $t1, 256
 	sw $s1, 0($t1)
 	sw $s1, 4($t1)
 	sw $s1, 8($t1)
 	# Quarta linha
-	addi $t1, $t1, 64
+	addi $t1, $t1, 256
 	sw $s1, 0($t1)
 	sw $s0, 4($t1)
 	sw $s1, 8($t1)
 	# Quinta linha
-	addi $t1, $t1, 64
+	addi $t1, $t1, 256
 	sw $s1, 0($t1)
 	sw $s1, 4($t1)
 	sw $s1, 8($t1)
@@ -352,22 +346,22 @@
 	sw $s1, 4($t1)
 	sw $s1, 8($t1)
 	# Segunda linha
-	addi $t1, $t1, 64
+	addi $t1, $t1, 256
 	sw $s0, 0($t1)
 	sw $s0, 4($t1)
 	sw $s1, 8($t1)
 	# Terceira linha
-	addi $t1, $t1, 64
+	addi $t1, $t1, 256
 	sw $s0, 0($t1)
 	sw $s0, 4($t1)
 	sw $s1, 8($t1)
 	# Quarta linha
-	addi $t1, $t1, 64
+	addi $t1, $t1, 256
 	sw $s0, 0($t1)
 	sw $s0, 4($t1)
 	sw $s1, 8($t1)
 	# Quinta linha
-	addi $t1, $t1, 64
+	addi $t1, $t1, 256
 	sw $s0, 0($t1)
 	sw $s0, 4($t1)
 	sw $s1, 8($t1)
@@ -381,22 +375,22 @@
 	sw $s1, 4($t1)
 	sw $s1, 8($t1)
 	# Segunda linha
-	addi $t1, $t1, 64
+	addi $t1, $t1, 256
 	sw $s1, 0($t1)
 	sw $s0, 4($t1)
 	sw $s1, 8($t1)
 	# Terceira linha
-	addi $t1, $t1, 64
+	addi $t1, $t1, 256
 	sw $s1, 0($t1)
 	sw $s1, 4($t1)
 	sw $s1, 8($t1)
 	# Quarta linha
-	addi $t1, $t1, 64
+	addi $t1, $t1, 256
 	sw $s1, 0($t1)
 	sw $s0, 4($t1)
 	sw $s1, 8($t1)
 	# Quinta linha
-	addi $t1, $t1, 64
+	addi $t1, $t1, 256
 	sw $s1, 0($t1)
 	sw $s1, 4($t1)
 	sw $s1, 8($t1)
@@ -409,22 +403,22 @@
 	sw $s1, 4($t1)
 	sw $s1, 8($t1)
 	# Segunda linha
-	addi $t1, $t1, 64
+	addi $t1, $t1, 256
 	sw $s1, 0($t1)
 	sw $s0, 4($t1)
 	sw $s1, 8($t1)
 	# Terceira linha
-	addi $t1, $t1, 64
+	addi $t1, $t1, 256
 	sw $s1, 0($t1)
 	sw $s1, 4($t1)
 	sw $s1, 8($t1)
 	# Quarta linha
-	addi $t1, $t1, 64
+	addi $t1, $t1, 256
 	sw $s0, 0($t1)
 	sw $s0, 4($t1)
 	sw $s1, 8($t1)
 	# Quinta linha
-	addi $t1, $t1, 64
+	addi $t1, $t1, 256
 	sw $s0, 0($t1)
 	sw $s0, 4($t1)
 	sw $s1, 8($t1)
@@ -435,29 +429,130 @@
 	# Pop from stack
 	lw $s0, 0($sp)
 	lw $s1, 4($sp)
-	lw $s2, 8($sp)
-	lw $s3, 12($sp)
-	lw $s4, 16($sp)
-	lw $s5, 20($sp)
-	lw $s6, 24($sp)
-	lw $s7, 28($sp)
-	lw $t0, 32($sp)
-	lw $t1, 36($sp)
-	lw %initial_pixel,	40($sp)
-	lw %number,		44($sp)
-	addi $sp, $sp, 40
+	lw $t0, 8($sp)
+	lw $t1, 12($sp)
+	lw %initial_pixel,	16($sp)
+	lw %number,		20($sp)
+	addi $sp, $sp, 24
 	# Pop from stack
 .end_macro
 
-.text
 
-li $s0, 0x10010000	# endereco inicial da tela
-li $s1, 256		# quantidade de pixels total
-la $s2, graph		# endereco do primeiro no do grafo
+#############################################################
+#############################################################
+#############################################################
 
 
-draw_maze($s0, $s2, $s1)	# Funcao que pinta os pixels baseado no grafo
+# Procedimento para desenhar uma vida, simbolo do pacman
+# %initial_pixel	-> registrador com endereco para o pixel superior esquerdo onde sera posicionado o pacman
+.macro draw_life (%initial_pixel)
+	# Push to stack
+	addi $sp, $sp, -20
+	sw $s0, 0($sp)
+	sw $s1, 4($sp)
+	sw $t0, 8($sp)
+	sw $t1, 12($sp)
+	sw %initial_pixel,	16($sp)
+	# Push to stack
+	
+	lw $t1, 16($sp)		# <$t1> initial_pixel
+	addi $s0, $zero, 0x00000000
+	addi $s1, $zero, 0x00ffff3c
+	
+	# Primeira linha
+	sw $s0, 0($t1)
+	sw $s1, 4($t1)
+	sw $s1, 8($t1)
+	sw $s1, 12($t1)
+	# Segunda linha
+	addi $t1, $t1, 256
+	sw $s1, 0($t1)
+	sw $s1, 4($t1)
+	sw $s1, 8($t1)
+	sw $s0, 12($t1)
+	# Terceira linha
+	addi $t1, $t1, 256
+	sw $s1, 0($t1)
+	sw $s1, 4($t1)
+	sw $s0, 8($t1)
+	sw $s0, 12($t1)
+	# Quarta linha
+	addi $t1, $t1, 256
+	sw $s1, 0($t1)
+	sw $s1, 4($t1)
+	sw $s1, 8($t1)
+	sw $s0, 12($t1)
+	# Quinta linha
+	addi $t1, $t1, 256
+	sw $s0, 0($t1)
+	sw $s1, 4($t1)
+	sw $s1, 8($t1)
+	sw $s1, 12($t1)
+	
+	
+	# Pop from stack
+	lw $s0, 0($sp)
+	lw $s1, 4($sp)
+	lw $t0, 8($sp)
+	lw $t1, 12($sp)
+	lw %initial_pixel,	16($sp)
+	addi $sp, $sp, 20
+	# Pop from stack
+.end_macro
 
-addi $s4, $zero, 908
 
-draw_points ($s0, $s4)
+
+#############################################################
+#############################################################
+#############################################################
+
+
+# Procedimento para desenhar a quantidade de vidas
+# %initial_pixel	-> registrador com endereco para o pixel superior esquerdo onde sera posicionado o pontuador
+# %life_number		-> registrador com quantidade de vidas
+.macro draw_life_number (%initial_pixel, %life_number)
+	# Push to stack
+	addi $sp, $sp, -16
+	sw $s0, 0($sp)
+	sw $s1, 4($sp)
+	sw %initial_pixel,	8($sp)
+	sw %life_number,	12($sp)
+	# Push to stack
+	
+	lw $t0, 12($sp)		# <$t0> life_number (iterador)
+	lw $t1, 8($sp)		# <$t1> initial_pixel
+	
+	draw_life_number_loop:
+	bge $zero, $t0, draw_life_number_end	# Se o numero de representacoes tiver acabado finalizar
+	
+	draw_life ($t1)
+	addi $t1, $t1, 20
+	
+	addi $t0, $t0, -1			# Decrementar iterador
+	j draw_life_number_loop
+	
+	draw_life_number_end:
+	# Pop from stack
+	lw $s0, 0($sp)
+	lw $s1, 4($sp)
+	lw %initial_pixel,	8($sp)
+	lw %life_number,	12($sp)
+	addi $sp, $sp, 16
+	# Pop from stack
+.end_macro
+
+# TEST
+#.text
+#
+#li $s0, 0x10010000	# endereco inicial da tela
+#li $s1, 256		# quantidade de pixels total
+#la $s2, graph		# endereco do primeiro no do grafo
+#
+#
+#draw_maze($s0, $s2, $s1)	# Funcao que pinta os pixels baseado no grafo
+#
+#addi $s4, $zero, 2
+
+#draw_life_number ($s0, $s4)
+
+
